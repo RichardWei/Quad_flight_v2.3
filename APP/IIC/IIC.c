@@ -5,7 +5,7 @@
 ** File Name:               sim_i2c.c
 ** Last modified Date:      
 ** Last Version:            
-** Description:             Ä£ÄâI2C½Ó¿Ú(Ä¬ÈÏ100kbps)
+** Description:             Ä£I2CÓ¿(Ä¬100kbps)
 **
 **------------------------------------------------------------------------------
 ** Created By:              wanxuncpx
@@ -16,63 +16,63 @@
 *******************************************************************************/
 
 /******************************************************************************
-¸üĞÂËµÃ÷:
+Ëµ:
     
 ******************************************************************************/
 
 /******************************************************************************
-*********************************  Ó¦ ÓÃ ×Ê ÁÏ ********************************
+*********************************  Ó¦    ********************************
 ******************************************************************************/
 
 /******************************************************************************
-********************************* ÎÄ¼şÒıÓÃ²¿·Ö ********************************
+********************************* Ä¼Ã² ********************************
 ******************************************************************************/
 #include "IIC.h"
 
 
 /******************************************************************************
-******************************* ×Ô¶¨Òå²ÎÊıÅäÖÃ ********************************
+******************************* Ô¶ ********************************
 ******************************************************************************/
 
 
 /******************************************************************************
-********************************* Êı ¾İ Éù Ã÷ *********************************
+*********************************     *********************************
 ******************************************************************************/
 /*---------------------* 
-*    IMPORT:ÓÉÍâÌá¹©   * 
+*    IMPORT:á¹©   * 
 *----------------------*/
 //none
 
 /*---------------------* 
-*    EXPORT:ÏòÍâÌá¹©   * 
+*    EXPORT:á¹©   * 
 *----------------------*/
 //none
 
 /******************************************************************************
-********************************* º¯ Êı Éù Ã÷ *********************************
+*********************************     *********************************
 ******************************************************************************/
 char  test=0;
 /*---------------------* 
-*    IMPORT:ÓÉÍâÌá¹©   * 
+*    IMPORT:á¹©   * 
 *----------------------*/
 //none
 
 /*---------------------* 
-*    EXPORT:ÏòÍâÌá¹©   * 
+*    EXPORT:á¹©   * 
 *----------------------*/
 //none
 
 
 
 /******************************************************************************
-*********************************  ³ÌĞò¿ªÊ¼  **********************************
+*********************************  Ê¼  **********************************
 ******************************************************************************/
 /******************************************************************************
-/ º¯Êı¹¦ÄÜ:ms¼¶ÑÓÊ±º¯Êı
-/ ĞŞ¸ÄÈÕÆÚ:none
-/ ÊäÈë²ÎÊı:none
-/ Êä³ö²ÎÊı:none
-/ Ê¹ÓÃËµÃ÷:none
+/ :msÊ±
+/ Ş¸:none
+/ :none
+/ :none
+/ Ê¹Ëµ:none
 ******************************************************************************/
 void Delayms(uint32_t time)
 {
@@ -85,17 +85,17 @@ void Delayms(uint32_t time)
 }
 
 /******************************************************************************
-/ º¯Êı¹¦ÄÜ:I2C½Ó¿ÚÅäÖÃ³ÌĞò
-/ ĞŞ¸ÄÈÕÆÚ:none
-/ ÊäÈë²ÎÊı:none
-/ Êä³ö²ÎÊı:none
-/ Ê¹ÓÃËµÃ÷:none
+/ :I2CÓ¿Ã³
+/ Ş¸:none
+/ :none
+/ :none
+/ Ê¹Ëµ:none
 ******************************************************************************/
 void I2C_IO_Init(void)
 {
   GPIO_InitTypeDef  GPIO_InitStructure; 
     
-  //¹Ø±ÕJTAGÊ¹ÄÜSWDÒÔÊÍ·ÅIO¿Ú
+  //Ø±JTAGÊ¹SWDÍ·IO
   uint32_t u32Temp;
   RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO | RCC_APB2Periph_GPIOB , ENABLE);
   u32Temp = AFIO->MAPR;
@@ -106,30 +106,30 @@ void I2C_IO_Init(void)
   //RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO | RCC_APB2Periph_GPIOB , ENABLE);
   //GPIO_PinRemapConfig(GPIO_Remap_SWJ_Disable,ENABLE);	
 	
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB,ENABLE);//¿ªÆôGPIOCÊ±ÖÓ	 
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB,ENABLE);//GPIOCÊ±	 
 	GPIO_InitStructure.GPIO_Pin =GPIO_Pin_7|GPIO_Pin_6; 
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz; 
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_OD;//GPIO_Mode_Out_OD;//¿ªÂ©Êä³ö /*GPIO_Mode_Out_PP;*/
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_OD;//GPIO_Mode_Out_OD;//Â© /*GPIO_Mode_Out_PP;*/
 	GPIO_Init(GPIOB, &GPIO_InitStructure);
 	GPIO_SetBits(GPIOB,GPIO_Pin_7|GPIO_Pin_6);
 	GPIO_InitStructure.GPIO_Pin =GPIO_Pin_10|GPIO_Pin_11;
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;	//ÍÆÍìÊä³ö
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;	//
 	GPIO_Init(GPIOB, &GPIO_InitStructure);
 	GPIO_SetBits(GPIOB,GPIO_Pin_10|GPIO_Pin_11);
 
 }
 
 /******************************************************************************
-/ º¯Êı¹¦ÄÜ:Simulation IIC Timing series delay
-/ ĞŞ¸ÄÈÕÆÚ:none
-/ ÊäÈë²ÎÊı:none
-/ Êä³ö²ÎÊı:none
-/ Ê¹ÓÃËµÃ÷:none
+/ :Simulation IIC Timing series delay
+/ Ş¸:none
+/ :none
+/ :none
+/ Ê¹Ëµ:none
 ******************************************************************************/
-__inline void I2C_delay(void)
+ void I2C_delay(void)
 {
         
-   u8 i=I2C_DELAY_VAL; //ÕâÀï¿ÉÒÔÓÅ»¯ËÙ¶È   £¬¾­²âÊÔ×îµÍµ½5»¹ÄÜĞ´Èë
+   u8 i=I2C_DELAY_VAL; //Å»Ù¶   Íµ5Ğ´
    while(i) 
    { 
      i--; 
@@ -151,10 +151,10 @@ bool I2C_Start(void)
     SDA_H;
     SCL_H;
     I2C_delay();
-    if(!SDA_read)return false;  //SDAÏßÎªµÍµçÆ½Ôò×ÜÏßÃ¦,ÍË³ö
+    if(!SDA_read)return false;  //SDAÎªÍµÆ½Ã¦,Ë³
     SDA_L;
     I2C_delay();
-    if(SDA_read) return false;  //SDAÏßÎª¸ßµçÆ½Ôò×ÜÏß³ö´í,ÍË³ö
+    if(SDA_read) return false;  //SDAÎªßµÆ½ß³,Ë³
     SDA_L;
     I2C_delay();
     return true;
@@ -220,7 +220,7 @@ void I2C_NoAck(void)
 * Output         : None
 * Return         : Wheather  Reserive Slave Acknowledge Single
 ****************************************************************************** */
-bool I2C_WaitAck(void)   //·µ»ØÎª:=1ÓĞACK,=0ÎŞACK
+bool I2C_WaitAck(void)   //Îª:=1ACK,=0ACK
 {
     SCL_L;
     I2C_delay();
@@ -245,7 +245,7 @@ bool I2C_WaitAck(void)   //·µ»ØÎª:=1ÓĞACK,=0ÎŞACK
 * Output         : None
 * Return         : None
 ****************************************************************************** */
-void I2C_SendByte(u8 SendByte) //Êı¾İ´Ó¸ßÎ»µ½µÍÎ»//
+void I2C_SendByte(u8 SendByte) //İ´Ó¸Î»Î»//
 {
     u8 i=8;
     while(i--)
@@ -270,7 +270,7 @@ void I2C_SendByte(u8 SendByte) //Êı¾İ´Ó¸ßÎ»µ½µÍÎ»//
 * Output         : None
 * Return         : Date From Slave 
 ****************************************************************************** */
-uint8_t I2C_RadeByte(void)  //Êı¾İ´Ó¸ßÎ»µ½µÍÎ»//
+uint8_t I2C_RadeByte(void)  //İ´Ó¸Î»Î»//
 { 
     u8 i=8;
     u8 ReceiveByte=0;
@@ -292,21 +292,21 @@ uint8_t I2C_RadeByte(void)  //Êı¾İ´Ó¸ßÎ»µ½µÍÎ»//
     return ReceiveByte;
 } 
 /******************************************************************************
-/ º¯Êı¹¦ÄÜ:µ¥×Ö½ÚĞ´Èë
-/ ĞŞ¸ÄÈÕÆÚ:none
-/ ÊäÈë²ÎÊı:
-/   @arg SlaveAddress   ´ÓÆ÷¼şµØÖ·
-/   @arg REG_Address    ¼Ä´æÆ÷µØÖ·
-/   @arg REG_data       ÓûĞ´ÈëµÄ×Ö½ÚÊı¾İ
-/ Êä³ö²ÎÊı: ¶Á³öµÄ×Ö½ÚÊı¾İ
-/ Ê¹ÓÃËµÃ÷:ÕâÊ±Ò»¸öÍêÕûµÄµ¥×Ö½Ú¶ÁÈ¡º¯Êı
+/ :Ö½Ğ´
+/ Ş¸:none
+/ :
+/   @arg SlaveAddress   Ö·
+/   @arg REG_Address    Ä´Ö·
+/   @arg REG_data       Ğ´Ö½
+/ : Ö½
+/ Ê¹Ëµ:Ê±Ò»ÄµÖ½Ú¶È¡
 ******************************************************************************/
 bool Single_Write(uint8_t SlaveAddress,uint8_t REG_Address,uint8_t REG_data)
 {
     if(!I2C_Start())return false;
-    I2C_SendByte(SlaveAddress);   //·¢ËÍÉè±¸µØÖ·+Ğ´ĞÅºÅ//I2C_SendByte(((REG_Address & 0x0700) >>7) | SlaveAddress & 0xFFFE);//ÉèÖÃ¸ßÆğÊ¼µØÖ·+Æ÷¼şµØÖ· 
+    I2C_SendByte(SlaveAddress);   //è±¸Ö·+Ğ´Åº//I2C_SendByte(((REG_Address & 0x0700) >>7) | SlaveAddress & 0xFFFE);//Ã¸Ê¼Ö·+Ö· 
     if(!I2C_WaitAck()){I2C_Stop(); return false;}
-    I2C_SendByte(REG_Address );   //ÉèÖÃµÍÆğÊ¼µØÖ·      
+    I2C_SendByte(REG_Address );   //ÃµÊ¼Ö·      
     I2C_WaitAck();  
     I2C_SendByte(REG_data);
     I2C_WaitAck();   
@@ -316,21 +316,21 @@ bool Single_Write(uint8_t SlaveAddress,uint8_t REG_Address,uint8_t REG_data)
 }
 
 /******************************************************************************
-/ º¯Êı¹¦ÄÜ:µ¥×Ö½ÚĞ´Èë
-/ ĞŞ¸ÄÈÕÆÚ:none
-/ ÊäÈë²ÎÊı:
-/   @arg SlaveAddress   ´ÓÆ÷¼şµØÖ·
-/   @arg REG_Address    ¼Ä´æÆ÷µØÖ·
-/   @arg REG_data       ÓûĞ´ÈëµÄ×Ö½ÚÊı¾İ
-/ Êä³ö²ÎÊı: ¶Á³öµÄ×Ö½ÚÊı¾İ
-/ Ê¹ÓÃËµÃ÷:ÕâÊ±Ò»¸öÍêÕûµÄµ¥×Ö½Ú¶ÁÈ¡º¯Êı
+/ :Ö½Ğ´
+/ Ş¸:none
+/ :
+/   @arg SlaveAddress   Ö·
+/   @arg REG_Address    Ä´Ö·
+/   @arg REG_data       Ğ´Ö½
+/ : Ö½
+/ Ê¹Ëµ:Ê±Ò»ÄµÖ½Ú¶È¡
 ******************************************************************************/
 bool Fast_Write(uint8_t SlaveAddress,uint8_t REG_Address,uint8_t REG_data)
 {
     if(!I2C_Start())return false;
-    I2C_SendByte(SlaveAddress);   //·¢ËÍÉè±¸µØÖ·+Ğ´ĞÅºÅ//I2C_SendByte(((REG_Address & 0x0700) >>7) | SlaveAddress & 0xFFFE);//ÉèÖÃ¸ßÆğÊ¼µØÖ·+Æ÷¼şµØÖ· 
+    I2C_SendByte(SlaveAddress);   //è±¸Ö·+Ğ´Åº//I2C_SendByte(((REG_Address & 0x0700) >>7) | SlaveAddress & 0xFFFE);//Ã¸Ê¼Ö·+Ö· 
     if(!I2C_WaitAck()){I2C_Stop(); return false;}
-    I2C_SendByte(REG_Address );   //ÉèÖÃµÍÆğÊ¼µØÖ·      
+    I2C_SendByte(REG_Address );   //ÃµÊ¼Ö·      
     I2C_WaitAck();  
     I2C_SendByte(REG_data);
     I2C_WaitAck();   
@@ -341,21 +341,21 @@ bool Fast_Write(uint8_t SlaveAddress,uint8_t REG_Address,uint8_t REG_data)
 
 
 /******************************************************************************
-/ º¯Êı¹¦ÄÜ:µ¥×Ö½ÚĞ´Èë
-/ ĞŞ¸ÄÈÕÆÚ:none
-/ ÊäÈë²ÎÊı:
-/   @arg SlaveAddress   ´ÓÆ÷¼şµØÖ·
-/   @arg REG_Address    ¼Ä´æÆ÷µØÖ·
-/ Êä³ö²ÎÊı: ¶Á³öµÄ×Ö½ÚÊı¾İ
-/ Ê¹ÓÃËµÃ÷:ÕâÊ±Ò»¸öÍêÕûµÄµ¥×Ö½Ú¶ÁÈ¡º¯Êı
+/ :Ö½Ğ´
+/ Ş¸:none
+/ :
+/   @arg SlaveAddress   Ö·
+/   @arg REG_Address    Ä´Ö·
+/ : Ö½
+/ Ê¹Ëµ:Ê±Ò»ÄµÖ½Ú¶È¡
 ******************************************************************************/
 uint8_t Single_Read(uint8_t SlaveAddress,uint8_t REG_Address)
 {   
     uint8_t REG_data;       
     if(!I2C_Start())return false;
-    I2C_SendByte(SlaveAddress); //I2C_SendByte(((REG_Address & 0x0700) >>7) | REG_Address & 0xFFFE);//ÉèÖÃ¸ßÆğÊ¼µØÖ·+Æ÷¼şµØÖ· 
+    I2C_SendByte(SlaveAddress); //I2C_SendByte(((REG_Address & 0x0700) >>7) | REG_Address & 0xFFFE);//Ã¸Ê¼Ö·+Ö· 
     if(!I2C_WaitAck()){I2C_Stop();return false;}
-    I2C_SendByte((u8) REG_Address);   //ÉèÖÃµÍÆğÊ¼µØÖ·      
+    I2C_SendByte((u8) REG_Address);   //ÃµÊ¼Ö·      
     I2C_WaitAck();
     I2C_Start();
     I2C_SendByte(SlaveAddress+1);
@@ -369,15 +369,15 @@ uint8_t Single_Read(uint8_t SlaveAddress,uint8_t REG_Address)
 }
 
 /******************************************************************************
-/ º¯Êı¹¦ÄÜ:¶à×Ö½Ú¶Á³öº¯Êı
-/ ĞŞ¸ÄÈÕÆÚ:none
-/ ÊäÈë²ÎÊı:
-/   @arg SlaveAddress   ´ÓÆ÷¼şµØÖ·
-/   @arg REG_Address    ¼Ä´æÆ÷µØÖ·
-/   @arg ptChar         Êä³ö»º³å
-/   @arg size           ¶Á³öµÄÊı¾İ¸öÊı,size±ØĞë´óÓÚ=1
-/ Êä³ö²ÎÊı: ³É¹¦Ê§°Ü±ê¼Ç
-/ Ê¹ÓÃËµÃ÷:none
+/ :Ö½Ú¶
+/ Ş¸:none
+/ :
+/   @arg SlaveAddress   Ö·
+/   @arg REG_Address    Ä´Ö·
+/   @arg ptChar         ï¿½
+/   @arg size           İ¸,size=1
+/ : É¹Ê§Ü±
+/ Ê¹Ëµ:none
 ******************************************************************************/
 bool Mult_Read(uint8_t SlaveAddress,uint8_t REG_Address,uint8_t * ptChar,uint8_t size)
 {
@@ -394,7 +394,7 @@ bool Mult_Read(uint8_t SlaveAddress,uint8_t REG_Address,uint8_t * ptChar,uint8_t
     I2C_SendByte(SlaveAddress+1);
     I2C_WaitAck();
     
-    //Á¬Ğø¶Á³öax,ay,azÊı¾İ
+    //ax,ay,az
     for(i=1;i<size; i++)
     {
         *ptChar++ = I2C_RadeByte();
