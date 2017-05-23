@@ -42,8 +42,11 @@ struct __FILE
 	int handle; 
 
 }; 
-
-FILE* __stdout;       
+#ifdef KEIL
+FILE __stdout; 
+#else 
+FILE* __stdout; 
+#endif
 //_sys_exit()Աʹðģʽ    
 _sys_exit(int x) 
 { 
