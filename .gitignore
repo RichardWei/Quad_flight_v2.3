@@ -41,3 +41,5 @@ Icon
 .elf
 .map
 
+*.bak
+*.weizh
